@@ -3,36 +3,38 @@
     <button v-on:click="openForm" v-show="!isCreating">追加</button>
     <div v-show="isCreating">
       <div class="content">
-        <div class="form">
+        <form class="form" @submit.prevent="sendForm">
           <div class="field">
             <label>Title</label>
-            <input type="text" v-model="newTitle" ref="title" defaultValue="">
+            <input type="text" v-model="title" ref="title" defaultValue="">
           </div>
           <div class="field">
             <label>URL</label>
-            <input type="text" v-model="newUrl" ref="url" defaultValue="">
+            <input type="text" v-model="url" ref="url" defaultValue="">
           </div>
           <div class="field">
             <label>Comment</label>
-            <input type="text" v-model="newComment" ref="comment" defaultValue="">
+            <input type="text" v-model="comment" ref="comment" defaultValue="">
           </div>
           <div class="buttons">
-            <button v-on:click="sendForm">追加</button>
+            <button type="submit">追加</button>
             <button v-on:click="closeForm">キャンセル</button>
           </div>
-        </div>
+        </form>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import db from '../firebase'
 export default {
   data() {
     return {
-      newTitle: '',
-      newUrl: '',
-      newComment: '',
+      title: '',
+      url: '',
+      comment: '',
+      createdAt: '',
       isCreating: false
     }
   },
@@ -44,18 +46,31 @@ export default {
       this.isCreating = false
     },
     sendForm() {
-      if (this.newTitle.length > 0 && this.newUrl.length > 0) {
-        const title = this.newTitle
-        const url = this.newUrl
-        const comment = this.newComment
-        this.$emit('create-item', {
-          title,
-          url,
-          comment
+      if (this.title.length > 0 && this.url.length > 0) {
+        const now = new Date()
+        db.collection('items').add({
+          title: this.title,
+          url: this.url,
+          comment: this.comment,
+          createdAt: now,
         })
-        this.newTitle = ''
-        this.newUrl = ''
-        this.newComment = ''
+        .then(docRef => {
+          console.log('Document written with ID: ', docRef.id)
+        })
+        .catch(error => {
+          console.error('Error adding document: ', error)
+        })
+        // const title = this.newTitle
+        // const url = this.newUrl
+        // const comment = this.newComment
+        // this.$emit('create-item', {
+        //   title,
+        //   url,
+        //   comment
+        // })
+        this.title = ''
+        this.url = ''
+        this.comment = ''
         this.isCreating = false
       }
     }

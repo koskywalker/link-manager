@@ -12,7 +12,7 @@ const config = {
 }
 
 const firebaseApp = firebase.initializeApp(config)
-const firestore = firebaseApp.firestore()
-firestore.settings({ timestampsInSnapshots: true })
+const db = firebaseApp.firestore()
+db.settings({ timestampsInSnapshots: true })
 
-export default firebase
+export default db
