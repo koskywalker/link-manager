@@ -53,6 +53,7 @@ export default {
           url: this.url,
           comment: this.comment,
           createdAt: now,
+          slug: this.generateUUID(),
         })
         .then(docRef => {
           console.log('Document written with ID: ', docRef.id)
@@ -60,19 +61,20 @@ export default {
         .catch(error => {
           console.error('Error adding document: ', error)
         })
-        // const title = this.newTitle
-        // const url = this.newUrl
-        // const comment = this.newComment
-        // this.$emit('create-item', {
-        //   title,
-        //   url,
-        //   comment
-        // })
         this.title = ''
         this.url = ''
         this.comment = ''
         this.isCreating = false
       }
+    },
+    generateUUID() {
+      let d = new Date().getTime();
+      let uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        let r = (d + Math.random() * 16) % 16 | 0
+        d = Math.floor(d / 16)
+        return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16)
+      })
+      return uuid
     }
   }
 }
