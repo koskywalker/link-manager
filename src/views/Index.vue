@@ -1,7 +1,7 @@
 <template>
   <div class="index">
     <button v-on:click="signOut">ログアウト</button>
-    <create-item v-on:create-item="addItem"></create-item>
+    <create-item v-on:create-item="openAddItemForm"></create-item>
     <item-list></item-list>
   </div>
 </template>
@@ -23,7 +23,7 @@ export default {
         this.$router.push('/signin')
       })
     },
-    addItem(item) {
+    openAddItemForm(item) {
       this.items.push(item);
     }
   }

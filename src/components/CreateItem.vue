@@ -3,7 +3,7 @@
     <button v-on:click="openForm" v-show="!isCreating">追加</button>
     <div v-show="isCreating">
       <div class="content">
-        <form class="form" @submit.prevent="sendForm">
+        <div class="form">
           <div class="field">
             <label>Title</label>
             <input type="text" v-model="title" ref="title" defaultValue="">
@@ -17,10 +17,10 @@
             <input type="text" v-model="comment" ref="comment" defaultValue="">
           </div>
           <div class="buttons">
-            <button type="submit">追加</button>
-            <button v-on:click="closeForm">キャンセル</button>
+            <button v-on:click="cancelAddItem">キャンセル</button>
+            <button v-on:click="addItem">追加</button>
           </div>
-        </form>
+        </div>
       </div>
     </div>
   </div>
@@ -34,7 +34,6 @@ export default {
       title: '',
       url: '',
       comment: '',
-      createdAt: '',
       isCreating: false
     }
   },
@@ -42,10 +41,13 @@ export default {
     openForm() {
       this.isCreating = true
     },
-    closeForm() {
+    cancelAddItem() {
+      this.title = '',
+      this.url = '',
+      this.comment = '',
       this.isCreating = false
     },
-    sendForm() {
+    addItem() {
       if (this.title.length > 0 && this.url.length > 0) {
         const now = new Date()
         db.collection('items').add({
@@ -53,12 +55,7 @@ export default {
           url: this.url,
           comment: this.comment,
           createdAt: now,
-        })
-        .then(docRef => {
-          console.log('Document written with ID: ', docRef.id)
-        })
-        .catch(error => {
-          console.error('Error adding document: ', error)
+          updateAt: now,
         })
         this.title = ''
         this.url = ''

@@ -1,7 +1,6 @@
 <template>
   <div class="item-list">
     <one-item
-      v-on:delete-item="deleteItem"
       v-for="(item, index) in items"
       v-bind:item="item"
       v-bind:key="index">
@@ -36,12 +35,6 @@ export default {
         this.items.push(data)
       })
     })
-  },
-  methods: {
-    deleteItem(item) {
-      const itemIndex = this.items.indexOf(item)
-      this.items.splice(itemIndex, 1)
-    }
   }
 }
 </script>

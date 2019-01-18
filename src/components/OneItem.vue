@@ -24,7 +24,8 @@
           <input type="text" v-model="item.comment">
         </div>
         <div class="button">
-          <button v-on:click="hideForm">完了</button>
+          <button v-on:click="hideForm">キャンセル</button>
+          <button v-on:click="updateItem(item.id)">完了</button>
         </div>
       </div>
     </div>
@@ -49,6 +50,16 @@ export default {
     },
     deleteItem(id) {
       db.collection('items').doc(id).delete()
+    },
+    updateItem(id) {
+      const now = new Date()
+      db.collection('items').doc(id).update({
+        title: this.item.title,
+        url: this.item.url,
+        comment: this.item.comment,
+        updateAt: now,
+      })
+      this.hideForm()
     }
   }
 }
