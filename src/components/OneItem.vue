@@ -6,7 +6,7 @@
       <div class="item-comment">{{ item.comment }}</div>
       <div class="item-btns">
         <button v-on:click="showForm">編集</button>
-        <button v-on:click="deleteItem(item)">削除</button>
+        <button v-on:click="deleteItem(item.id)">削除</button>
       </div>
     </div>
     <div class="content" v-show="isEditing">
@@ -32,6 +32,7 @@
 </template>
 
 <script>
+import db from '../firebase'
 export default {
   props: ['item'],
   data() {
@@ -46,8 +47,8 @@ export default {
     hideForm() {
       this.isEditing = false
     },
-    deleteItem(item) {
-      this.$emit('delete-item', item)
+    deleteItem(id) {
+      db.collection('items').doc(id).delete()
     }
   }
 }
