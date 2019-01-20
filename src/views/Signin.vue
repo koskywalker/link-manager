@@ -35,7 +35,6 @@ export default {
     signIn () {
       firebase.auth().signInWithEmailAndPassword(this.email, this.password).then(
         user => {
-          alert('Success' + user.user.email)
           this.$router.push('/')
         },
         err => {
