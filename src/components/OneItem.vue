@@ -52,11 +52,11 @@ export default {
       this.isEditing = false
     },
     deleteItem(id) {
-      db.collection('item').doc(id).delete()
+      db.collection('items').doc(id).delete()
     },
     updateItem(id) {
       const now = new Date()
-      db.collection('item').doc(id).update({
+      db.collection('items').doc(id).update({
         title: this.item.title,
         url: this.item.url,
         comment: this.item.comment,

@@ -23,9 +23,6 @@ export default {
         this.$router.push('/signin')
       })
     }
-  },
-  created() {
-    const user = firebase.auth().currentUser
   }
 }
 </script>

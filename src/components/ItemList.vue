@@ -23,7 +23,7 @@ export default {
     }
   },
   created() {
-    db.collection('item').orderBy('createdAt', 'desc')
+    db.collection('items').orderBy('createdAt', 'desc')
     .onSnapshot((querySnapshot) => {
       this.items = []
       querySnapshot.forEach((doc) => {
