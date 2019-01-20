@@ -12,16 +12,19 @@
     <div class="content" v-show="isEditing">
       <div class="form">
         <div class="field">
-          <label>Title</label>
-          <input type="text" v-model="item.title">
+          <label>
+            Title: <input type="text" v-model="item.title">
+          </label>
         </div>
         <div class="field">
-          <label>URL</label>
-          <input type="text" v-model="item.url">
+          <label>
+            URL: <input type="text" v-model="item.url">
+          </label>
         </div>
         <div class="field">
-          <label>Comment</label>
-          <input type="text" v-model="item.comment">
+          <label>
+            Comment: <input type="text" v-model="item.comment">
+          </label>
         </div>
         <div class="button">
           <button v-on:click="hideForm">キャンセル</button>
@@ -57,7 +60,7 @@ export default {
         title: this.item.title,
         url: this.item.url,
         comment: this.item.comment,
-        updateAt: now,
+        updatedAt: now,
       })
       this.hideForm()
     }

@@ -9,6 +9,7 @@
 </template>
 
 <script>
+import firebase from 'firebase'
 import db from '../firebase'
 import OneItem from './OneItem'
 
@@ -26,13 +27,19 @@ export default {
     .onSnapshot((querySnapshot) => {
       this.items = []
       querySnapshot.forEach((doc) => {
-        let data = {
-          'id': doc.id,
-          'title': doc.data().title,
-          'url': doc.data().url,
-          'comment': doc.data().comment,
+        const currentUserId = firebase.auth().currentUser.uid
+        if (currentUserId === doc.data().userId) {
+          let data = {
+            'id': doc.id,
+            'userId': doc.data().userId,
+            'title': doc.data().title,
+            'url': doc.data().url,
+            'comment': doc.data().comment,
+            'createdAt': doc.data().createdAt,
+            'updatedAt': doc.data().updatedAt,
+          }
+          this.items.push(data)
         }
-        this.items.push(data)
       })
     })
   }

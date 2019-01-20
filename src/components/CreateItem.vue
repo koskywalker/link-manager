@@ -5,16 +5,19 @@
       <div class="content">
         <div class="form">
           <div class="field">
-            <label>Title</label>
-            <input type="text" v-model="title" ref="title" defaultValue="">
+            <label>
+              Title: <input type="text" v-model="title" ref="title" defaultValue="">
+            </label>
           </div>
           <div class="field">
-            <label>URL</label>
-            <input type="text" v-model="url" ref="url" defaultValue="">
+            <label>
+              URL: <input type="text" v-model="url" ref="url" defaultValue="">
+            </label>
           </div>
           <div class="field">
-            <label>Comment</label>
-            <input type="text" v-model="comment" ref="comment" defaultValue="">
+            <label>
+              Comment: <input type="text" v-model="comment" ref="comment" defaultValue="">
+            </label>
           </div>
           <div class="buttons">
             <button v-on:click="cancelAddItem">キャンセル</button>
@@ -27,6 +30,7 @@
 </template>
 
 <script>
+import firebase from 'firebase'
 import db from '../firebase'
 export default {
   data() {
@@ -50,12 +54,14 @@ export default {
     addItem() {
       if (this.title.length > 0 && this.url.length > 0) {
         const now = new Date()
+        const currentUserId = firebase.auth().currentUser.uid
         db.collection('items').add({
+          userId: currentUserId,
           title: this.title,
           url: this.url,
           comment: this.comment,
           createdAt: now,
-          updateAt: now,
+          updatedAt: now,
         })
         this.title = ''
         this.url = ''
