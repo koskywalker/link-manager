@@ -1,7 +1,7 @@
 <template>
   <div class="index">
     <button v-on:click="signOut">ログアウト</button>
-    <create-item v-on:create-item="openAddItemForm"></create-item>
+    <create-item></create-item>
     <item-list></item-list>
   </div>
 </template>
@@ -22,10 +22,10 @@ export default {
       firebase.auth().signOut().then(() => {
         this.$router.push('/signin')
       })
-    },
-    openAddItemForm(item) {
-      this.items.push(item);
     }
+  },
+  created() {
+    const user = firebase.auth().currentUser
   }
 }
 </script>

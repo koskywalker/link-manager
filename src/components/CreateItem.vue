@@ -27,6 +27,7 @@
 </template>
 
 <script>
+import firebase from 'firebase'
 import db from '../firebase'
 export default {
   data() {
@@ -49,13 +50,15 @@ export default {
     },
     addItem() {
       if (this.title.length > 0 && this.url.length > 0) {
+        const userId = firebase.auth().currentUser.uid
         const now = new Date()
-        db.collection('items').add({
+        db.collection('item').add({
+          userId: userId,
           title: this.title,
           url: this.url,
           comment: this.comment,
           createdAt: now,
-          updateAt: now,
+          updatedAt: now,
         })
         this.title = ''
         this.url = ''

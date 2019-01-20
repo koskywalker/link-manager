@@ -49,15 +49,15 @@ export default {
       this.isEditing = false
     },
     deleteItem(id) {
-      db.collection('items').doc(id).delete()
+      db.collection('item').doc(id).delete()
     },
     updateItem(id) {
       const now = new Date()
-      db.collection('items').doc(id).update({
+      db.collection('item').doc(id).update({
         title: this.item.title,
         url: this.item.url,
         comment: this.item.comment,
-        updateAt: now,
+        updatedAt: now,
       })
       this.hideForm()
     }
