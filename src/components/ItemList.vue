@@ -38,6 +38,7 @@ export default {
             updatedAt: doc.data().updatedAt,
           }
           this.items.push(data)
+          console.log('a')
         }
       })
     })
