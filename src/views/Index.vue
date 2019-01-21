@@ -1,9 +1,13 @@
 <template>
-  <div class="index">
-    <button v-on:click="signOut">ログアウト</button>
-    <create-item></create-item>
-    <item-list></item-list>
-  </div>
+  <v-container class="index">
+    <v-layout>
+      <v-flex>
+        <button v-on:click="signOut">ログアウト</button>
+        <create-item></create-item>
+        <item-list></item-list>
+      </v-flex>
+    </v-layout>
+  </v-container>
 </template>
 
 <script>

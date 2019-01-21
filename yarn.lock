@@ -6687,11 +6687,6 @@ readdirp@^2.0.0:
     micromatch "^3.1.10"
     readable-stream "^2.0.2"
 
-reboot.css@^1.0.4:
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/reboot.css/-/reboot.css-1.0.4.tgz#a5940caf7bd09fb417cb7145e1e01a74fa13d8fe"
-  integrity sha512-j4NBSCoQudwQaTzcJygtOvUWlfb91RvdjrP2FjDHWDCzPUdz0S9edSOl4UHxw8i0V/wcadgSPwsb1SDkHmZwBA==
-
 redent@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/redent/-/redent-1.0.0.tgz#cf916ab1fd5f1f16dfb20822dd6ec7f730c2afde"
@@ -8189,6 +8184,11 @@ vue@^2.5.17:
   version "2.5.21"
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.5.21.tgz#3d33dcd03bb813912ce894a8303ab553699c4a85"
   integrity sha512-Aejvyyfhn0zjVeLvXd70h4hrE4zZDx1wfZqia6ekkobLmUZ+vNFQer53B4fu0EjWBSiqApxPejzkO1Znt3joxQ==
+
+vuetify@^1.4.2:
+  version "1.4.2"
+  resolved "https://registry.yarnpkg.com/vuetify/-/vuetify-1.4.2.tgz#3e136397463d1e980e8ccdd78e4dcfcdfa4c538c"
+  integrity sha512-HnMBBtO5FqTPzr6FXVlxnYulGMrHVlcmBL7SSLE/AQnNbdUpT6Jw9D/Kdw9fbK5mdn7JSWMcfWpPJUrqYTtK1w==
 
 vuex@^3.0.1:
   version "3.0.1"

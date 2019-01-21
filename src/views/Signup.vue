@@ -35,10 +35,10 @@ export default {
         this.email,
         this.password
       )
-      .then(user => {
+      .then(() => {
         this.$router.push('/')
       })
-      .catch(error => {
+      .catch((error) => {
         alert(error.message)
       })
     }

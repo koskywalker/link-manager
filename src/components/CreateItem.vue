@@ -53,7 +53,6 @@ export default {
     },
     addItem() {
       if (this.title.length > 0 && this.url.length > 0) {
-        const userId = firebase.auth().currentUser.uid
         const now = new Date()
         const currentUserId = firebase.auth().currentUser.uid
         db.collection('items').add({

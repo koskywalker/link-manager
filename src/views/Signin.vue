@@ -33,14 +33,16 @@ export default {
   },
   methods: {
     signIn () {
-      firebase.auth().signInWithEmailAndPassword(this.email, this.password).then(
-        user => {
-          this.$router.push('/')
-        },
-        err => {
-          alert(err.message)
-        }
+      firebase.auth().signInWithEmailAndPassword(
+        this.email,
+        this.password
       )
+      .then(() => {
+        this.$router.push('/')
+      })
+      .catch((error) => {
+        alert(error.message)
+      })
     }
   }
 }
