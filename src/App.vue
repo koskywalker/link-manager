@@ -1,16 +1,26 @@
 <template>
   <v-app>
-    <v-toolbar app>
-      <v-toolbar-title>URL管理＆簡単コピペツール</v-toolbar-title>
-    </v-toolbar>
-    <v-navigation-drawer app></v-navigation-drawer>
+    <header-area></header-area>
     <v-content>
       <v-container fluid>
         <router-view/>
       </v-container>
     </v-content>
-    <v-footer>フッター</v-footer>
+    <footer-area></footer-area>
   </v-app>
 </template>
+
+<script>
+import HeaderArea from '@/components/HeaderArea'
+import FooterArea from '@/components/FooterArea'
+
+export default {
+  components: {
+    HeaderArea,
+    FooterArea,
+  }
+}
+</script>
+
 
 <style lang="scss"></style>

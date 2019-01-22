@@ -13,7 +13,7 @@
 
 <script>
 import firebase from 'firebase'
-import ItemList from '@/components/ItemList.vue'
+import ItemList from '@/components/ItemList'
 import CreateItem from '@/components/CreateItem'
 
 export default {
