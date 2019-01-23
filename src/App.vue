@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app id="inspire">
     <header-area></header-area>
     <v-content>
       <v-container fluid>
