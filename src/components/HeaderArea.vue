@@ -23,7 +23,7 @@
         autofocus
         prepend-inner-icon="search"
         label="Search"
-        class="hidden-sm-and-down"
+        class="hidden-sm-and-down mt-2"
       ></v-text-field>
       <v-spacer></v-spacer>
       <v-btn icon>

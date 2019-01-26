@@ -30,13 +30,13 @@ export default {
         const currentUserId = firebase.auth().currentUser.uid
         if (currentUserId === doc.data().userId) {
           let data = {
-            'id': doc.id,
-            'userId': doc.data().userId,
-            'title': doc.data().title,
-            'url': doc.data().url,
-            'comment': doc.data().comment,
-            'createdAt': doc.data().createdAt,
-            'updatedAt': doc.data().updatedAt,
+            id: doc.id,
+            userId: doc.data().userId,
+            title: doc.data().title,
+            url: doc.data().url,
+            comment: doc.data().comment,
+            createdAt: doc.data().createdAt,
+            updatedAt: doc.data().updatedAt,
           }
           this.items.push(data)
         }

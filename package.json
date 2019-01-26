@@ -10,6 +10,7 @@
   "dependencies": {
     "firebase": "^5.7.1",
     "vue": "^2.5.17",
+    "vue-instantsearch": "^1.7.0",
     "vue-router": "^3.0.1",
     "vuetify": "^1.4.2",
     "vuex": "^3.0.1"

@@ -5,7 +5,6 @@
           <button v-on:click="signOut">ログアウト</button>
           <create-item></create-item>
           <item-list></item-list>
-          <v-card-title>aaa</v-card-title>
         </v-flex>
       </v-layout>
     </v-container>

@@ -38,6 +38,7 @@
 <script>
 import db from '../firebase'
 export default {
+  // ItemList からの item を受け取る
   props: ['item'],
   data() {
     return {

@@ -62,6 +62,7 @@ export default {
           comment: this.comment,
           createdAt: now,
           updatedAt: now,
+          isEditing: false,
         })
         this.title = ''
         this.url = ''

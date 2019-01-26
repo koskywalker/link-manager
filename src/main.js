@@ -7,10 +7,15 @@ import 'vuetify/dist/vuetify.min.css'
 import 'material-design-icons-iconfont/dist/material-design-icons.css'
 import '@mdi/font/css/materialdesignicons.css'
 import './firebase'
+import InstantSearch from 'vue-instantsearch'
 
-Vue.use(Vuetify, {
-  iconfont: 'mdi',
-})
+Vue.use(
+  Vuetify,
+  InstantSearch,
+  {
+    iconfont: 'mdi',
+  }
+)
 Vue.config.productionTip = false
 
 new Vue({
