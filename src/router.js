@@ -31,7 +31,7 @@ let router = new Router({
       name: 'signin',
       component: Signin,
       meta: { isPublic: true }
-    }
+    },
   ]
 })
 

@@ -6,34 +6,32 @@
       app
       fixed
     >
-      <v-toolbar-title
-        style="width: 300px"
-        class="ml-0 pl-3"
-      >
-        <v-toolbar-side-icon
-            @click.stop="drawer = !drawer"
-        ></v-toolbar-side-icon>
-        <span>
-          アプリ名
-        </span>
-      </v-toolbar-title>
+      <v-toolbar-side-icon
+        class="mr-4 ml-1"
+        v-on:click.stop="drawer = !drawer"
+      ></v-toolbar-side-icon>
       <v-text-field
         flat
         solo-inverted
         autofocus
         prepend-inner-icon="search"
         label="Search"
-        class="hidden-sm-and-down mt-2"
+        class="mt-2"
+        v-model="search"
       ></v-text-field>
-      <v-spacer></v-spacer>
-      <v-btn icon>
-        <v-icon>notifications</v-icon>
+      <!-- <v-spacer></v-spacer> -->
+      <v-btn
+        flat
+        class="font-weight-bold"
+        v-on:click="signOut"
+      >
+        ログアウト
       </v-btn>
     </v-toolbar>
     <v-navigation-drawer
-        temporary
-        v-model="drawer"
-        absolute
+      temporary
+      v-model="drawer"
+      absolute
     >
       <v-list class="pa-1">
         <v-list-tile avatar>
@@ -61,15 +59,33 @@
 </template>
 
 <script>
+import firebase from 'firebase'
+
 export default {
-  name: 'headerArea',
+  name: 'HeaderArea',
   data() {
     return {
       drawer: null,
+      search: '',
       items: [
         { title: 'Home', icon: 'dashboard' },
         { title: 'About', icon: 'question_answer' }
-      ]
+      ],
+    }
+  },
+  methods: {
+    toHome() {
+      this.$router.push('/')
+    },
+    signOut() {
+      firebase.auth().signOut().then(() => {
+        this.$router.push('/signin')
+      })
+    }
+  },
+  watch: {
+    search() {
+      this.$emit('search-value-event', this.search)
     }
   }
 }

@@ -1,32 +1,38 @@
 <template>
-    <v-container class="index">
+  <div>
+    <header-area v-on:search-value-event="searchValueUpdate"></header-area>
+    <v-content>
       <v-layout align-centter justify-center>
         <v-flex>
-          <button v-on:click="signOut">ログアウト</button>
           <create-item></create-item>
-          <item-list></item-list>
+          <item-list v-bind:search="parentSearchValue"></item-list>
         </v-flex>
       </v-layout>
-    </v-container>
+    </v-content>
+  </div>
 </template>
 
 <script>
-import firebase from 'firebase'
+import HeaderArea from '@/components/HeaderArea'
 import ItemList from '@/components/ItemList'
 import CreateItem from '@/components/CreateItem'
 
 export default {
   name: 'index',
   components: {
+    HeaderArea,
     ItemList,
     CreateItem,
   },
-  methods: {
-    signOut() {
-      firebase.auth().signOut().then(() => {
-        this.$router.push('/signin')
-      })
+  data() {
+    return {
+      parentSearchValue: ''
     }
+  },
+  methods: {
+    searchValueUpdate(v) {
+      this.parentSearchValue = v
+    },
   }
 }
 </script>
