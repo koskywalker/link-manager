@@ -4,8 +4,8 @@
     <v-content>
       <v-layout align-centter justify-center>
         <v-flex>
-          <create-item></create-item>
           <item-list v-bind:search="parentSearchValue"></item-list>
+          <create-item></create-item>
         </v-flex>
       </v-layout>
     </v-content>
