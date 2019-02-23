@@ -19,7 +19,6 @@
         class="mt-2"
         v-model="search"
       ></v-text-field>
-      <!-- <v-spacer></v-spacer> -->
       <v-btn
         flat
         class="font-weight-bold"
@@ -91,4 +90,8 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.theme--dark.v-text-field--solo-inverted.v-text-field--solo.v-input--is-focused>.v-input__control>.v-input__slot input {
+  color: rgba(0, 0, 0, .3);
+}
+</style>

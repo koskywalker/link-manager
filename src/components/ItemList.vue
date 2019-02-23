@@ -19,12 +19,8 @@
 <script>
 import firebase from 'firebase'
 import db from '../firebase'
-// import OneItem from './OneItem'
 
 export default {
-  components: {
-    // OneItem,
-  },
   props: ['search'],
   data() {
     return {
