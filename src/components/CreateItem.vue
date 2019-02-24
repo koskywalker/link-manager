@@ -1,31 +1,35 @@
 <template>
   <div class="create-item">
-    <button v-on:click="openForm" v-show="!isCreating">追加</button>
-    <div v-show="isCreating">
-      <div class="content">
-        <div class="form">
-          <div class="field">
-            <label>
-              Title: <input type="text" v-model="title" ref="title" defaultValue="">
-            </label>
-          </div>
-          <div class="field">
-            <label>
-              URL: <input type="text" v-model="url" ref="url" defaultValue="">
-            </label>
-          </div>
-          <div class="field">
-            <label>
-              Comment: <input type="text" v-model="comment" ref="comment" defaultValue="">
-            </label>
-          </div>
-          <div class="buttons">
-            <button v-on:click="cancelAddItem">キャンセル</button>
-            <button v-on:click="addItem">追加</button>
-          </div>
-        </div>
-      </div>
-    </div>
+    <v-dialog v-model="dialog" max-width="500px">
+      <v-btn slot="activator" color="primary" dark class="mb-2">追加</v-btn>
+      <v-card>
+        <v-card-title>
+          <span class="headline">{{ formTitle }}</span>
+        </v-card-title>
+
+        <v-card-text>
+          <v-container grid-list-md>
+            <v-layout wrap>
+              <v-flex xs12 sm6 md4>
+                <v-text-field v-model="editedItem.title" label="名前" ref="title"></v-text-field>
+              </v-flex>
+              <v-flex xs12 sm6 md4>
+                <v-text-field v-model="editedItem.url" label="URL"></v-text-field>
+              </v-flex>
+              <v-flex xs12 sm6 md4>
+                <v-text-field v-model="editedItem.comment" label="メモ"></v-text-field>
+              </v-flex>
+            </v-layout>
+          </v-container>
+        </v-card-text>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="blue darken-1" flat @click="cancelAddItem">キャンセル</v-btn>
+          <v-btn color="blue darken-1" flat @click="addItem">追加</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
@@ -35,44 +39,52 @@ import db from '../firebase'
 export default {
   data() {
     return {
-      title: '',
-      url: '',
-      comment: '',
-      isCreating: false
+      dialog: false,
+      formTitle: '項目を追加',
+      editedItem: {
+        title: '',
+        url: '',
+        comment: '',
+      }
     }
   },
   methods: {
-    openForm() {
-      this.isCreating = true
-    },
     cancelAddItem() {
-      this.title = '',
-      this.url = '',
-      this.comment = '',
-      this.isCreating = false
+      this.dialog = false,
+      this.editedItem.title = '',
+      this.editedItem.url = '',
+      this.editedItem.comment = ''
     },
     addItem() {
-      if (this.title.length > 0 && this.url.length > 0) {
+      if (this.editedItem.title.length > 0 && this.editedItem.url.length > 0) {
         const now = new Date()
         const currentUserId = firebase.auth().currentUser.uid
         db.collection('items').add({
           userId: currentUserId,
-          title: this.title,
-          url: this.url,
-          comment: this.comment,
+          title: this.editedItem.title,
+          url: this.editedItem.url,
+          comment: this.editedItem.comment,
           createdAt: now,
           updatedAt: now,
-          isEditing: false,
         })
-        this.title = ''
-        this.url = ''
-        this.comment = ''
-        this.isCreating = false
+        this.editedItem.title = ''
+        this.editedItem.url = ''
+        this.editedItem.comment = ''
+        this.dialog = false
+      }
+    }
+  },
+  watch: {
+    dialog(val) {
+      if (val) {
+        this.$nextTick(this.$refs.title.focus)
+      }
+      if (!val) {
+        this.$emit('dialog-value-event')
       }
     }
   }
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss"></style>

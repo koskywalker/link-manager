@@ -5,7 +5,6 @@
       <v-layout align-centter justify-center>
         <v-flex>
           <item-list v-bind:search="parentSearchValue"></item-list>
-          <create-item></create-item>
         </v-flex>
       </v-layout>
     </v-content>
@@ -15,14 +14,12 @@
 <script>
 import HeaderArea from '@/components/HeaderArea'
 import ItemList from '@/components/ItemList'
-import CreateItem from '@/components/CreateItem'
 
 export default {
   name: 'index',
   components: {
     HeaderArea,
     ItemList,
-    CreateItem,
   },
   data() {
     return {
