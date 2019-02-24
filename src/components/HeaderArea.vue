@@ -1,11 +1,31 @@
 <template>
   <div>
-    <v-toolbar color="teal accent-4" dark app fixed>
-      <v-text-field flat solo-inverted autofocus prepend-inner-icon="search"
-        label="Search" class="mt-2" v-model="search" ref="searchField"
+    <v-toolbar
+      color="teal
+      accent-4"
+      dark
+      app
+      fixed
+    >
+      <v-text-field
+        flat
+        solo-inverted
+        autofocus
+        prepend-inner-icon="search"
+        label="Search"
+        class="mt-2 mr-4"
+        v-model="search"
+        ref="searchField"
       ></v-text-field>
-      <v-btn flat class="font-weight-bold" v-on:click="signOut">ログアウト</v-btn>
-      <create-item v-on:dialog-value-event="searchField_setFocus"></create-item>
+      <create-item
+        @dialog-value-event="searchField_setFocus"
+      ></create-item>
+      <v-btn
+        flat
+        class="font-weight-bold"
+        @click="signOut"
+        tabindex="-1"
+      >ログアウト</v-btn>
     </v-toolbar>
   </div>
 </template>

@@ -1,10 +1,14 @@
 <template>
   <div>
-    <header-area v-on:search-value-event="searchValueUpdate"></header-area>
+    <header-area
+      @search-value-event="searchValueUpdate"
+    ></header-area>
     <v-content>
       <v-layout align-centter justify-center>
         <v-flex>
-          <item-list v-bind:search="parentSearchValue"></item-list>
+          <item-list
+            v-bind:search="parentSearchValue"
+          ></item-list>
         </v-flex>
       </v-layout>
     </v-content>
@@ -29,7 +33,7 @@ export default {
   methods: {
     searchValueUpdate(v) {
       this.parentSearchValue = v
-    },
+    }
   }
 }
 </script>

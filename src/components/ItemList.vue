@@ -1,21 +1,57 @@
 <template>
   <div class="item-list">
-    <v-data-table :items="desserts" :headers="header" class="elevation-10" :search="search">
-      <template slot="items" slot-scope="props">
-        <td>{{props.item.title}}</td>
-        <td>{{props.item.url}}</td>
-        <td>{{props.item.comment}}</td>
-        <td class="justify-center align-center layout px-0">
-          <v-icon small @click="editItem(props.item)" class="mr-4">edit</v-icon>
-          <v-icon small @click="deleteItem(props.item)">delete</v-icon>
-        </td>
+    <v-data-table
+      :items="tableItems"
+      :headers="header"
+      class="elevation-1"
+      :search="search"
+      hide-actions
+    >
+      <template
+        slot="items"
+        slot-scope="props"
+      >
+        <tr
+          @keyup.space="copyItemUrl(props.item)"
+          @keyup.69="editItem(props.item)"
+          @keyup.68="deleteItem(props.item)"
+          @keyup.74="jumpToTargetLink(props.item)"
+          tabindex="0"
+        >
+          <td>{{props.item.title}}</td>
+          <td>
+            <a
+              :href="props.item.url"
+              target="_blank"
+              tabindex="-1"
+            >{{props.item.url}}</a>
+          </td>
+          <td>{{props.item.comment}}</td>
+          <td class="justify-center align-center layout px-0">
+            <v-icon
+              small
+              @click="editItem(props.item)"
+              class="mr-4"
+            >edit</v-icon>
+            <v-icon
+              small
+              @click="deleteItem(props.item)"
+            >delete</v-icon>
+          </td>
+        </tr>
       </template>
-      <v-alert slot="no-results" :value="true" color="error" icon="warning">
-        "{{ search }}" に該当する項目はありません。
-      </v-alert>
+      <v-alert
+        slot="no-results"
+        :value="true"
+        color="error"
+        icon="warning"
+      >"{{ search }}" に該当する項目はありません。</v-alert>
     </v-data-table>
-    <v-dialog v-model="dialog" max-width="500px">
-      <v-btn slot="activator" icon></v-btn>
+    <v-dialog
+      v-model="dialog"
+      max-width="500px"
+      @keydown.esc="cancelAddItem"
+    >
       <v-card>
         <v-card-title>
           <span class="headline">項目を編集</span>
@@ -24,21 +60,40 @@
           <v-container grid-list-md>
             <v-layout wrap>
               <v-flex xs12 sm6 md4>
-                <v-text-field v-model="editedItem.title" label="名前" ref="title" onfocus="this.select()"></v-text-field>
+                <v-text-field
+                  v-model="editedItem.title"
+                  label="名前"
+                  ref="title"
+                  onfocus="this.select()"
+                ></v-text-field>
               </v-flex>
               <v-flex xs12 sm6 md4>
-                <v-text-field v-model="editedItem.url" label="URL"></v-text-field>
+                <v-text-field
+                  v-model="editedItem.url"
+                  label="URL"
+                ></v-text-field>
               </v-flex>
               <v-flex xs12 sm6 md4>
-                <v-text-field v-model="editedItem.comment" label="メモ"></v-text-field>
+                <v-text-field
+                  v-model="editedItem.comment"
+                  label="メモ"
+                ></v-text-field>
               </v-flex>
             </v-layout>
           </v-container>
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="blue darken-1" flat @click="cancelAddItem">キャンセル</v-btn>
-          <v-btn color="blue darken-1" flat @click="saveItem(editedItem)">完了</v-btn>
+          <v-btn
+            color="blue darken-1"
+            flat
+            @click="cancelAddItem"
+          >キャンセル</v-btn>
+          <v-btn
+            color="blue darken-1"
+            flat
+            @click="saveItem(editedItem)"
+          >完了</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -54,12 +109,12 @@ export default {
   data() {
     return {
       header: [
-        { text: '名前', value: 'title' },
-        { text: 'URL', value: 'url' },
-        { text: 'メモ', value: 'comment' },
+        { text: '名前', value: 'title', sortable: false },
+        { text: 'URL', value: 'url', sortable: false },
+        { text: 'メモ', value: 'comment', sortable: false },
         { text: '', value: 'name', sortable: false },
       ],
-      desserts: [],
+      tableItems: [],
       dialog: false,
       editedIndex: -1,
       editedItem: {
@@ -89,7 +144,7 @@ export default {
     initialize() {
       db.collection('items').orderBy('createdAt', 'desc')
       .onSnapshot((querySnapshot) => {
-        this.desserts = []
+        this.tableItems = []
         querySnapshot.forEach((doc) => {
           const currentUserId = firebase.auth().currentUser.uid
           if (currentUserId === doc.data().userId) {
@@ -102,27 +157,30 @@ export default {
               createdAt: doc.data().createdAt,
               updatedAt: doc.data().updatedAt,
             }
-            this.desserts.push(data)
+            this.tableItems.push(data)
           }
         })
       })
     },
 
     editItem(item) {
-      this.editedIndex = this.desserts.indexOf(item)
+      this.editedIndex = this.tableItems.indexOf(item)
       this.editedItem = Object.assign({}, item)
       this.dialog = true
       this.$nextTick(this.$refs.title.focus)
     },
 
     deleteItem(item) {
+      confirm('本当に削除してもよろしいですか？') &&
       db.collection('items').doc(item.id).delete()
     },
 
     cancelAddItem() {
       this.dialog = false,
-      this.editedItem = Object.assign({}, this.defaultItem)
-      this.editedIndex = -1
+      setTimeout(() => {
+        this.editedItem = Object.assign({}, this.defaultItem)
+        this.editedIndex = -1
+      }, 300)
     },
 
     saveItem(item) {
@@ -137,9 +195,26 @@ export default {
         this.editedItem = Object.assign({}, this.defaultItem)
         this.dialog = false
       }
+    },
+
+    copyItemUrl(item) {
+      const text = document.createElement('textarea')
+      text.value = item.url
+      document.body.appendChild(text)
+      text.select()
+      document.execCommand('copy')
+      document.body.removeChild(text)
+    },
+
+    jumpToTargetLink(item) {
+      open(item.url, "_blank")
     }
   }
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+table.v-table tbody tr:focus {
+  background: #eee;
+}
+</style>
