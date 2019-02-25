@@ -39,24 +39,29 @@ export default {
   components: {
     CreateItem
   },
+
   data() {
     return {
       search: '',
     }
   },
+
   methods: {
     toHome() {
       this.$router.push('/')
     },
+
     signOut() {
       firebase.auth().signOut().then(() => {
         this.$router.push('/signin')
       })
     },
+
     searchField_setFocus() {
       this.$nextTick(this.$refs.searchField.focus)
     }
   },
+
   watch: {
     search() {
       this.$emit('search-value-event', this.search)

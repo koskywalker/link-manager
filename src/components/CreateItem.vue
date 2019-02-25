@@ -63,6 +63,7 @@
 <script>
 import firebase from 'firebase'
 import db from '../firebase'
+
 export default {
   data() {
     return {
@@ -80,6 +81,7 @@ export default {
       }
     }
   },
+
   methods: {
     cancelAddItem() {
       this.dialog = false
@@ -87,6 +89,7 @@ export default {
         this.editedItem = Object.assign({}, this.defaultItem)
       }, 300)
     },
+
     addItem() {
       if (this.editedItem.title.length > 0 && this.editedItem.url.length > 0) {
         const now = new Date()
@@ -106,6 +109,7 @@ export default {
       }
     }
   },
+
   watch: {
     dialog(val) {
       if (val) {

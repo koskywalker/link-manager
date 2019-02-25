@@ -25,11 +25,13 @@ export default {
     HeaderArea,
     ItemList,
   },
+
   data() {
     return {
       parentSearchValue: ''
     }
   },
+
   methods: {
     searchValueUpdate(v) {
       this.parentSearchValue = v
