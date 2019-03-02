@@ -4,7 +4,10 @@
       @search-value-event="searchValueUpdate"
     ></header-area>
     <v-content>
-      <v-layout align-centter justify-center>
+      <v-layout
+        align-centter
+        justify-center
+      >
         <v-flex>
           <item-list
             v-bind:search="parentSearchValue"
