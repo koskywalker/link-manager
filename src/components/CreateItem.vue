@@ -102,9 +102,7 @@ export default {
           createdAt: now,
           updatedAt: now,
         })
-        this.editedItem.title = ''
-        this.editedItem.url = ''
-        this.editedItem.comment = ''
+        this.editedItem = Object.assign({}, this.defaultItem)
         this.dialog = false
       }
     }
