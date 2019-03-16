@@ -1,17 +1,10 @@
 <template>
   <div>
-    <header-area
-      @search-value-event="searchValueUpdate"
-    ></header-area>
+    <header-area @search-value-event="searchValueUpdate"></header-area>
     <v-content>
-      <v-layout
-        align-centter
-        justify-center
-      >
+      <v-layout align-centter justify-center>
         <v-flex>
-          <item-list
-            v-bind:search="parentSearchValue"
-          ></item-list>
+          <item-list v-bind:search="parentSearchValue"></item-list>
         </v-flex>
       </v-layout>
     </v-content>
@@ -29,14 +22,14 @@ export default {
     ItemList,
   },
 
-  data() {
+  data () {
     return {
       parentSearchValue: ''
     }
   },
 
   methods: {
-    searchValueUpdate(v) {
+    searchValueUpdate (v) {
       this.parentSearchValue = v
     }
   }

@@ -31,7 +31,7 @@ let router = new Router({
       name: 'signin',
       component: Signin,
       meta: { isPublic: true }
-    },
+    }
   ]
 })
 
@@ -40,7 +40,7 @@ router.beforeEach((to, from, next) => {
   if (!isPublic) {
     // isPublic でないルートはログインされているかどうか認証が必要です。
     // もしログインされていないならば、ログインページにリダイレクトします。
-    firebase.auth().onAuthStateChanged(function (user) {
+    firebase.auth().onAuthStateChanged(function(user) {
       if (!user) {
         next({
           path: '/signin',

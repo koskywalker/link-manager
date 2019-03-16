@@ -9,13 +9,9 @@ import '@mdi/font/css/materialdesignicons.css'
 import './firebase'
 import InstantSearch from 'vue-instantsearch'
 
-Vue.use(
-  Vuetify,
-  InstantSearch,
-  {
-    iconfont: 'mdi',
-  }
-)
+Vue.use(Vuetify, InstantSearch, {
+  iconfont: 'mdi'
+})
 Vue.config.productionTip = false
 
 new Vue({

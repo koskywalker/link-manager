@@ -12,10 +12,8 @@
       </div>
       <button type="submit">ログイン</button>
     </form>
-    <p>
-      まだアカウントを持っていないなら
-      <router-link to="/signup">アカウントを作成</router-link>
-      しよう！
+    <p>まだアカウントを持っていないなら
+      <router-link to="/signup">アカウントを作成</router-link>しよう！
     </p>
   </div>
 </template>
@@ -37,12 +35,12 @@ export default {
         this.email,
         this.password
       )
-      .then(() => {
-        this.$router.push('/')
-      })
-      .catch((error) => {
-        alert(error.message)
-      })
+        .then(() => {
+          this.$router.push('/')
+        })
+        .catch((error) => {
+          alert(error.message)
+        })
     }
   }
 }

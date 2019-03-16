@@ -1,12 +1,7 @@
 <template>
   <div>
-    <v-toolbar
-      color="teal
-      accent-4"
-      dark
-      app
-      fixed
-    >
+    <v-toolbar color="teal
+      accent-4" dark app fixed>
       <v-text-field
         flat
         solo-inverted
@@ -17,15 +12,8 @@
         v-model="search"
         ref="searchField"
       ></v-text-field>
-      <create-item
-        @dialog-value-event="searchField_setFocus"
-      ></create-item>
-      <v-btn
-        flat
-        class="font-weight-bold"
-        @click="signOut"
-        tabindex="-1"
-      >ログアウト</v-btn>
+      <create-item @dialog-value-event="searchField_setFocus"></create-item>
+      <v-btn flat class="font-weight-bold" @click="signOut" tabindex="-1">ログアウト</v-btn>
     </v-toolbar>
   </div>
 </template>
@@ -40,30 +28,30 @@ export default {
     CreateItem
   },
 
-  data() {
+  data () {
     return {
       search: '',
     }
   },
 
   methods: {
-    toHome() {
+    toHome () {
       this.$router.push('/')
     },
 
-    signOut() {
+    signOut () {
       firebase.auth().signOut().then(() => {
         this.$router.push('/signin')
       })
     },
 
-    searchField_setFocus() {
+    searchField_setFocus () {
       this.$nextTick(this.$refs.searchField.focus)
     }
   },
 
   watch: {
-    search() {
+    search () {
       this.$emit('search-value-event', this.search)
     }
   }
@@ -71,7 +59,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.theme--dark.v-text-field--solo-inverted.v-text-field--solo.v-input--is-focused>.v-input__control>.v-input__slot input {
-  color: rgba(0, 0, 0, .3);
+.theme--dark.v-text-field--solo-inverted.v-text-field--solo.v-input--is-focused
+  > .v-input__control
+  > .v-input__slot
+  input {
+  color: rgba(0, 0, 0, 0.3);
 }
 </style>
