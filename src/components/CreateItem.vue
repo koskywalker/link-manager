@@ -12,10 +12,15 @@
           <v-container grid-list-md>
             <v-layout wrap>
               <v-flex xs12 sm6 md4>
-                <v-text-field v-model="editedItem.title" label="名前" ref="title"></v-text-field>
+                <v-text-field
+                  v-model="editedItem.title"
+                  label="名前"
+                  ref="title"
+                  :rules="[rules.required]"
+                ></v-text-field>
               </v-flex>
               <v-flex xs12 sm6 md4>
-                <v-text-field v-model="editedItem.url" label="URL"></v-text-field>
+                <v-text-field v-model="editedItem.url" label="URL" :rules="[rules.required]"></v-text-field>
               </v-flex>
               <v-flex xs12 sm6 md4>
                 <v-text-field v-model="editedItem.comment" label="メモ"></v-text-field>
@@ -23,7 +28,6 @@
             </v-layout>
           </v-container>
         </v-card-text>
-
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="blue darken-1" flat @click="cancelAddItem">キャンセル</v-btn>
@@ -52,6 +56,9 @@ export default {
         title: '',
         url: '',
         comment: '',
+      },
+      rules: {
+        required: value => !!value || '入力必須項目です。',
       }
     }
   },
@@ -89,6 +96,9 @@ export default {
       }
       if (!val) {
         this.$emit('dialog-value-event')
+        setTimeout(() => {
+          this.editedItem = Object.assign({}, this.defaultItem)
+        }, 300)
       }
     }
   }
