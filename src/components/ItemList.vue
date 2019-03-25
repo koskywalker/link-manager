@@ -46,11 +46,17 @@
                   v-model="editedItem.title"
                   label="名前"
                   ref="title"
+                  :rules="[rules.required]"
                   onfocus="this.select()"
                 ></v-text-field>
               </v-flex>
               <v-flex xs12 sm6 md4>
-                <v-text-field v-model="editedItem.url" label="URL"></v-text-field>
+                <v-text-field
+                  v-model="editedItem.url"
+                  label="URL"
+                  ref="url"
+                  :rules="[rules.required]"
+                ></v-text-field>
               </v-flex>
               <v-flex xs12 sm6 md4>
                 <v-text-field v-model="editedItem.comment" label="メモ"></v-text-field>
@@ -94,6 +100,9 @@ export default {
         title: '',
         url: '',
         comment: '',
+      },
+      rules: {
+        required: value => !!value || '入力必須項目です。',
       }
     }
   },

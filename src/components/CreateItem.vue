@@ -20,7 +20,12 @@
                 ></v-text-field>
               </v-flex>
               <v-flex xs12 sm6 md4>
-                <v-text-field v-model="editedItem.url" label="URL" :rules="[rules.required]"></v-text-field>
+                <v-text-field
+                  v-model="editedItem.url"
+                  label="URL"
+                  ref="url"
+                  :rules="[rules.required]"
+                ></v-text-field>
               </v-flex>
               <v-flex xs12 sm6 md4>
                 <v-text-field v-model="editedItem.comment" label="メモ"></v-text-field>
@@ -66,9 +71,6 @@ export default {
   methods: {
     cancelAddItem () {
       this.dialog = false
-      setTimeout(() => {
-        this.editedItem = Object.assign({}, this.defaultItem)
-      }, 300)
     },
 
     addItem () {
@@ -98,6 +100,8 @@ export default {
         this.$emit('dialog-value-event')
         setTimeout(() => {
           this.editedItem = Object.assign({}, this.defaultItem)
+          this.$refs.title.reset()
+          this.$refs.url.reset()
         }, 300)
       }
     }
