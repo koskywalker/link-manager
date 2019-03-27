@@ -1,7 +1,7 @@
 <template>
   <div class="create-item">
     <v-dialog v-model="dialog" max-width="500px" @keydown.esc="cancelAddItem">
-      <v-btn slot="activator" icon tabindex="-1">
+      <v-btn slot="activator" icon tabindex="0">
         <v-icon>add</v-icon>
       </v-btn>
       <v-card>
@@ -44,7 +44,7 @@
 </template>
 
 <script>
-import firebase from 'firebase'
+import firebase from 'firebase/app'
 import db from '../firebase'
 
 export default {

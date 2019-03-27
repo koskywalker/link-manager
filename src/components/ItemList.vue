@@ -1,38 +1,41 @@
 <template>
   <div class="item-list">
-    <v-data-table
-      :items="tableItems"
-      :headers="header"
-      class="elevation-1"
-      :search="search"
-      hide-actions
-    >
-      <template slot="items" slot-scope="props">
-        <tr
-          @keyup.space="copyItemUrl(props.item)"
-          @keyup.69="editItem(props.item)"
-          @keyup.68="deleteItem(props.item)"
-          @keyup.74="jumpToTargetLink(props.item)"
-          tabindex="0"
+    <v-layout style="height: 400px;">
+      <v-flex style="overflow-y: scroll;">
+        <v-data-table
+          :items="tableItems"
+          :headers="header"
+          class="elevation-1"
+          :search="search"
+          hide-actions
         >
-          <td>{{props.item.title}}</td>
-          <td>
-            <a :href="props.item.url" target="_blank" tabindex="-1">{{props.item.url}}</a>
-          </td>
-          <td>{{props.item.comment}}</td>
-          <td class="justify-center align-center layout px-0">
-            <v-icon small @click="editItem(props.item)" class="mr-4">edit</v-icon>
-            <v-icon small @click="deleteItem(props.item)">delete</v-icon>
-          </td>
-        </tr>
-      </template>
-      <v-alert
-        slot="no-results"
-        :value="true"
-        color="error"
-        icon="warning"
-      >"{{ search }}" に該当する項目はありません。</v-alert>
-    </v-data-table>
+          <template slot="items" slot-scope="props">
+            <tr
+              @keydown.space.prevent="copyItemUrl(props.item)"
+              @keyup.69="editItem(props.item)"
+              @keyup.68="deleteItem(props.item)"
+              @keyup.74="jumpToTargetLink(props.item)"
+              tabindex="0"
+            >
+              <td>
+                <a :href="props.item.url" target="_blank" tabindex="-1">{{props.item.title}}</a>
+              </td>
+              <td>{{props.item.comment}}</td>
+              <td class="justify-center align-center layout pl-5">
+                <v-icon small @click="editItem(props.item)" class="mr-4">edit</v-icon>
+                <v-icon small @click="deleteItem(props.item)">delete</v-icon>
+              </td>
+            </tr>
+          </template>
+          <v-alert
+            slot="no-results"
+            :value="true"
+            color="error"
+            icon="warning"
+          >"{{ search }}" に該当する項目はありません。</v-alert>
+        </v-data-table>
+      </v-flex>
+    </v-layout>
     <v-dialog v-model="dialog" max-width="500px" @keydown.esc="cancelAddItem">
       <v-card>
         <v-card-title>
@@ -75,7 +78,7 @@
 </template>
 
 <script>
-import firebase from 'firebase'
+import firebase from 'firebase/app'
 import db from '../firebase'
 
 export default {
@@ -84,7 +87,6 @@ export default {
     return {
       header: [
         { text: '名前', value: 'title', sortable: false },
-        { text: 'URL', value: 'url', sortable: false },
         { text: 'メモ', value: 'comment', sortable: false },
         { text: '', value: 'name', sortable: false },
       ],
@@ -190,8 +192,59 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style>
+.item-list .v-table__overflow table,
+.item-list .v-table__overflow thead,
+.item-list .v-table__overflow tbody,
+.item-list .v-table__overflow th {
+  display: block;
+}
+
+.item-list .v-table__overflow tr {
+  align-items: center;
+  display: flex;
+  padding: 0 20px;
+}
+
+.item-list .v-table__overflow th:first-child,
+.item-list .v-table__overflow td:first-child {
+  width: 50%;
+}
+
+.item-list .v-table__overflow th,
+.item-list .v-table__overflow td {
+  width: 30%;
+}
+
+.item-list .v-table__overflow th:last-child,
+.item-list .v-table__overflow td:last-child {
+  width: 20%;
+}
+
+.item-list .v-table__overflow td {
+  align-items: center;
+  display: flex;
+  overflow: hidden;
+}
+
+.item-list .elevation-1 {
+  box-shadow: none !important;
+}
+
 table.v-table tbody tr:focus {
   background: #eee;
+  outline: none;
+}
+
+.v-table__overflow table.v-table thead tr {
+  height: 48px;
+}
+
+.v-table__overflow table.v-table thead th {
+  font-weight: bold;
+}
+
+.v-table__overflow table.v-table tbody td {
+  height: 40px;
 }
 </style>

@@ -3,7 +3,7 @@ import Router from 'vue-router'
 import Index from './views/Index.vue'
 import Signup from './views/Signup'
 import Signin from './views/Signin'
-import firebase from 'firebase'
+import firebase from 'firebase/app'
 
 Vue.use(Router)
 
@@ -38,8 +38,6 @@ let router = new Router({
 router.beforeEach((to, from, next) => {
   const isPublic = to.matched.some(record => record.meta.isPublic)
   if (!isPublic) {
-    // isPublic でないルートはログインされているかどうか認証が必要です。
-    // もしログインされていないならば、ログインページにリダイレクトします。
     firebase.auth().onAuthStateChanged(function(user) {
       if (!user) {
         next({
@@ -51,7 +49,7 @@ router.beforeEach((to, from, next) => {
       }
     })
   } else {
-    next() // next() を常に呼び出すようにしてください!
+    next()
   }
 })
 

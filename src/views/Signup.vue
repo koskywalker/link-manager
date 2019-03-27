@@ -12,14 +12,15 @@
       </div>
       <button type="submit">登録</button>
     </form>
-    <p>すでにアカウントをお持ちの場合は
+    <p>
+      すでにアカウントをお持ちの場合は
       <router-link to="/signin">ログインしよう！</router-link>
     </p>
   </div>
 </template>
 
 <script>
-import firebase from 'firebase'
+import firebase from '../firebase'
 
 export default {
   name: 'Signup',
