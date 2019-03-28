@@ -1,6 +1,6 @@
 <template>
   <div class="item-list">
-    <v-layout style="height: 400px;">
+    <v-layout>
       <v-flex style="overflow-y: scroll;">
         <v-data-table
           :items="tableItems"
@@ -17,11 +17,11 @@
               @keyup.74="jumpToTargetLink(props.item)"
               tabindex="0"
             >
-              <td>
+              <td class="item-list-col item-list__title">
                 <a :href="props.item.url" target="_blank" tabindex="-1">{{props.item.title}}</a>
               </td>
-              <td>{{props.item.comment}}</td>
-              <td class="justify-center align-center layout pl-5">
+              <td class="item-list-col item-list__comment">{{props.item.comment}}</td>
+              <td class="item-list-col item-list__btns justify-center align-center layout pl-5">
                 <v-icon small @click="editItem(props.item)" class="mr-4">edit</v-icon>
                 <v-icon small @click="deleteItem(props.item)">delete</v-icon>
               </td>
@@ -206,22 +206,7 @@ export default {
   padding: 0 20px;
 }
 
-.item-list .v-table__overflow th:first-child,
-.item-list .v-table__overflow td:first-child {
-  width: 50%;
-}
-
-.item-list .v-table__overflow th,
-.item-list .v-table__overflow td {
-  width: 30%;
-}
-
-.item-list .v-table__overflow th:last-child,
-.item-list .v-table__overflow td:last-child {
-  width: 20%;
-}
-
-.item-list .v-table__overflow td {
+.item-list-col {
   align-items: center;
   display: flex;
   overflow: hidden;
@@ -229,6 +214,7 @@ export default {
 
 .item-list .elevation-1 {
   box-shadow: none !important;
+  max-height: 400px;
 }
 
 table.v-table tbody tr:focus {
@@ -245,6 +231,30 @@ table.v-table tbody tr:focus {
 }
 
 .v-table__overflow table.v-table tbody td {
+  height: 40px;
+}
+
+.v-table__overflow table.v-table tbody td {
+  width: 100%;
+}
+
+.item-list .v-table__overflow th:first-child,
+.item-list .v-table__overflow .item-list__title {
+  width: 50%;
+}
+
+.item-list .v-table__overflow th,
+.item-list .v-table__overflow .item-list__comment {
+  width: 30%;
+}
+
+.item-list .v-table__overflow th:last-child,
+.item-list .v-table__overflow .item-list__btns {
+  width: 20%;
+}
+
+.item-list .v-alert {
+  margin: 0;
   height: 40px;
 }
 </style>
