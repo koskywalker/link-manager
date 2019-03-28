@@ -1,8 +1,7 @@
 <template>
   <v-layout row>
     <v-flex xs8 offset-xs2>
-      <v-toolbar color="teal
-      accent-4" dark app fixed>
+      <v-toolbar color="teal accent-4" dark app fixed>
         <v-text-field
           flat
           solo-inverted
