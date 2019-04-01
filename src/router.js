@@ -3,12 +3,12 @@ import Router from 'vue-router'
 import Index from './views/Index.vue'
 import Signup from './views/Signup'
 import Signin from './views/Signin'
+import MailVerify from './views/MailVerify'
 import firebase from 'firebase/app'
 
 Vue.use(Router)
 
 let router = new Router({
-  mode: 'history',
   base: process.env.BASE_URL,
   routes: [
     {
@@ -31,6 +31,12 @@ let router = new Router({
       name: 'signin',
       component: Signin,
       meta: { isPublic: true }
+    },
+    {
+      path: '/mailverify',
+      name: 'mailverify',
+      component: MailVerify,
+      meta: { isPublic: true }
     }
   ]
 })
@@ -38,14 +44,22 @@ let router = new Router({
 router.beforeEach((to, from, next) => {
   const isPublic = to.matched.some(record => record.meta.isPublic)
   if (!isPublic) {
-    firebase.auth().onAuthStateChanged(function(user) {
-      if (!user) {
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        const authUser = firebase.auth().currentUser
+        if (authUser.emailVerified) {
+          next()
+        } else {
+          next({
+            path: '/signin',
+            query: { redirect: to.fullPath }
+          })
+        }
+      } else {
         next({
           path: '/signin',
           query: { redirect: to.fullPath }
         })
-      } else {
-        next()
       }
     })
   } else {

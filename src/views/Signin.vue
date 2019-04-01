@@ -62,7 +62,12 @@ export default {
         this.password
       )
         .then(() => {
-          this.$router.push('/')
+          const user = firebase.auth().currentUser
+          if (user.emailVerified) {
+            this.$router.push('/')
+          } else {
+            alert('メールアドレスの認証を完了させてください。')
+          }
         })
         .catch((error) => {
           alert(error.message)

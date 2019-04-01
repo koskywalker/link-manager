@@ -11,7 +11,7 @@
         <v-card-text>
           <v-container grid-list-md>
             <v-layout wrap>
-              <v-flex xs12 sm6 md4>
+              <v-flex xs12>
                 <v-text-field
                   v-model="editedItem.title"
                   label="名前"
@@ -19,7 +19,7 @@
                   :rules="[rules.required]"
                 ></v-text-field>
               </v-flex>
-              <v-flex xs12 sm6 md4>
+              <v-flex xs12>
                 <v-text-field
                   v-model="editedItem.url"
                   label="URL"
@@ -27,7 +27,7 @@
                   :rules="[rules.required]"
                 ></v-text-field>
               </v-flex>
-              <v-flex xs12 sm6 md4>
+              <v-flex xs12>
                 <v-text-field v-model="editedItem.comment" label="メモ"></v-text-field>
               </v-flex>
             </v-layout>

@@ -44,7 +44,7 @@
         <v-card-text>
           <v-container grid-list-md>
             <v-layout wrap>
-              <v-flex xs12 sm6 md4>
+              <v-flex xs12>
                 <v-text-field
                   v-model="editedItem.title"
                   label="名前"
@@ -53,7 +53,7 @@
                   onfocus="this.select()"
                 ></v-text-field>
               </v-flex>
-              <v-flex xs12 sm6 md4>
+              <v-flex xs12>
                 <v-text-field
                   v-model="editedItem.url"
                   label="URL"
@@ -61,7 +61,7 @@
                   :rules="[rules.required]"
                 ></v-text-field>
               </v-flex>
-              <v-flex xs12 sm6 md4>
+              <v-flex xs12>
                 <v-text-field v-model="editedItem.comment" label="メモ"></v-text-field>
               </v-flex>
             </v-layout>
@@ -214,7 +214,7 @@ export default {
 
 .item-list .elevation-1 {
   box-shadow: none !important;
-  max-height: 400px;
+  height: 300px;
 }
 
 table.v-table tbody tr:focus {

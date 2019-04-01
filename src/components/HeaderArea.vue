@@ -23,7 +23,6 @@ import firebase from 'firebase/app'
 import CreateItem from '@/components/CreateItem'
 
 export default {
-  name: 'HeaderArea',
   components: {
     CreateItem
   },

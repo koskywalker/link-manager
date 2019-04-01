@@ -17,7 +17,7 @@ a:hover {
 .main-wrap {
   min-height: initial;
   max-height: 100%;
-  max-width: 800px;
+  width: 800px;
 }
 
 .main-wrap .application--wrap {

@@ -24,6 +24,7 @@
               v-model="passwordVerify"
               :rules="[rules.required]"
               :type="'password'"
+              ref="passwordVerify"
               label="パスワード確認"
               validate-on-blur
               style="margin-left: 33px;"
@@ -71,13 +72,21 @@ export default {
           this.password
         )
           .then(() => {
-            this.$router.push('/')
+            const user = firebase.auth().currentUser;
+
+            user.sendEmailVerification().then(() => {
+              this.$router.push('/mailverify')
+            }).catch((error) => {
+              alert(error)
+            });
+            // this.$router.push('/')
           })
           .catch((error) => {
             alert(error.message)
           })
       } else {
         alert('パスワードが一致していません。')
+        this.$refs.passwordVerify.focus()
       }
     }
   }
