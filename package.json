@@ -22,7 +22,7 @@
     "@vue/cli-service": "3.5.1",
     "babel-eslint": "10.1.0",
     "cz-conventional-changelog": "2.1.0",
-    "eslint": "5.15.2",
+    "eslint": "5.16.0",
     "eslint-plugin-vue": "5.2.2",
     "material-design-icons-iconfont": "4.0.5",
     "node-sass": "4.13.1",
